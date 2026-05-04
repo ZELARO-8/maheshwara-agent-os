@@ -4,7 +4,7 @@
 - **Name:** BRIDGE
 - **Role:** Integration Hub (routes data between ZELARO systems)
 - **Tier:** 1
-- **Status:** LIVE ✅
+- **Status:** LIVE ✅ v1.1
 
 ## Purpose
 Receives integration requests and routes data between Notion, Slack, Gmail, and Google Drive based on integration type.
@@ -41,13 +41,17 @@ BRIDGE Webhook (POST)
 | notion | Create Notion Page |
 | slack | Send to Slack |
 | gmail | Send Gmail |
-| drive | Upload to Drive |
+| drive | Route to Send Gmail (Drive upload pending Google OAuth) |
 | unknown | Manual Review |
 
 ## Confirmation
 - **Channel:** #zelaro-ops
 - **Response:** Status object with routing result
 
+
+## Version History
+- **v1.1** (May 4, 2026) — Fixed Notion node (changed to Page resource), fixed Slack channel (#zelaro-ops), removed broken Drive upload node (Google OAuth required). Workflow PUBLISHED ✅
+- **v1.0** (May 3, 2026) — Initial creation, unpublished due to Notion DB and Drive credential errors
 ## Version History
 | Version | Date | Notes |
 |---------|------|-------|
