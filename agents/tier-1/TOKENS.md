@@ -16,22 +16,24 @@ Webhook Trigger (POST) → TOKENS Finance Controller (AI Agent)
 → Slack Simple Text Message (#zelaro-ops) → Respond to Webhook
 ```
 
+## Sub-Agents
+
+### REVENUE-TRACKER
+- **Workflow ID:** `yWSaZvml18tkEjYT`
+- **Webhook (Production):** `https://zelaro8.app.n8n.cloud/webhook/tokens-revenue-tracker`
+- **Method:** POST
+- **Status:** LIVE ✅ v1.0
+- **Purpose:** Analyzes daily, weekly, and monthly revenue data. Identifies trends, flags anomalies, calculates MRR/ARR, and produces actionable financial summaries.
+- **Model:** models/gemini-2.5-flash
+- **Slack Output:** `#zelaro-ops` — prefix `REVENUE-TRACKER:`
+
 ## Webhook Endpoints
-- **Production:** https://zelaro8.app.n8n.cloud/webhook/tokens-finance
+- **Production (Head Agent):** https://zelaro8.app.n8n.cloud/webhook/tokens-finance
 
 ## AI Model
 - **Model:** models/gemini-2.5-flash
 - **Credential:** Google Gemini (PaLM) API account
 
-## Slack Notification
-- **Channel:** #zelaro-ops
-- **Message Type:** Simple Text Message
-- **Format:** `TOKENS Finance Output: {{ $json.output }}`
-
 ## n8n Workflow ID
-`Wzd5rydOa4tRbFPQ`
-
-## Version History
-| Version | Date | Notes |
-|---|---|---|
-| v1.0 | May 3, 2026 | Initial deployment, Gemini 2.5 Flash, live |
+- **Head Agent:** `Wzd5rydOa4tRbFPQ`
+- **REVENUE-TRACKER Sub-Agent:** `yWSaZvml18tkEjYT`
