@@ -1,46 +1,64 @@
-# 👁 3NETHRA — Workflow Engine + Agent Builder
+# 3NETHRA — Workflow Engine + Agent Builder
 
-**Tier:** 1 | **Status:** ✅ LIVE | **Activated:** May 3, 2026
+## Identity
+- **Name:** 3NETHRA
+- **Role:** Workflow Engine + Agent Builder (Head of Tier-1)
+- **Tier:** 1
+- **Status:** LIVE ✅ v1.2
 
-## Role
-Builds, deploys, and manages all n8n workflows across the ZELARO empire. Acts as the primary agent builder — receiving requests and returning full workflow specifications powered by Gemini AI.
+## Purpose
+Receives agent build requests and orchestrates creation of new n8n workflows. Acts as the central coordinator for FORGE, SPARK, BRIDGE, and other sub-agents.
 
-## Webhook
-- **Production:** `https://zelaro8.app.n8n.cloud/webhook/3nethra-agent-builder`
-- **Test:** `https://zelaro8.app.n8n.cloud/webhook-test/3nethra-agent-builder`
+## Architecture
+```
+Webhook Trigger (POST)
+  → Format Agent Inputs
+  → ZELARO Agent Builder (Gemini 2.5 Flash)
+    ↓ Sub-nodes: Google Gemini Model + Memory + Tool
+  → Notify Slack (#zelaro-ops)
+  → Respond to Webhook
+```
 
-## Trigger Payload
+## Webhook Endpoints
+- **Production:** https://zelaro8.app.n8n.cloud/webhook/3nethra-agent-builder
+
+## Input Payload
 ```json
 {
-  "agent_name": "NANDI",
-  "agent_role": "Chief of Staff",
-  "agent_description": "Manages daily briefings and task routing",
-  "priority": "high"
+  "action": "assign_tasks",
+  "from": "MAHESHWARA",
+  "agents": [{...}],
+  "message": "string"
 }
 ```
 
-## Workflow Stack
-1. **Webhook Trigger** — POST /3nethra-agent-builder
-2. **Format Agent Inputs** — Extract + structure fields
-3. **ZELARO Agent Builder** — AI Agent (Gemini 2.0 Flash)
-   - System prompt: Expert ZELARO OS agent builder
-   - Outputs: trigger type, nodes, credentials, logic, Slack message
-4. **Notify Slack Channel** — Posts to #zelaro-ops
-5. **Respond to Webhook** — Returns JSON spec
+## AI Model
+- **Model:** models/gemini-2.5-flash
+- **Credential:** Google Gemini (PaLM) API account
+
+## Slack Notification
+- **Channel:** #zelaro-ops
+- **Message Type:** Simple Text Message
+- **Format:** `🤖 *3NETHRA Agent Build Complete*\n\n{{ $json.output }}`
 
 ## Sub-Agents
 | Agent | Role | Status |
 |-------|------|--------|
-| FORGE | Workflow builder | 🔴 Pending |
-| SPARK | Trigger + integration layer | 🔴 Pending |
-| BRIDGE | Cross-agent communication | 🔴 Pending |
+| FORGE | Workflow Builder | LIVE ✅ |
+| SPARK | Insight Engine | LIVE ✅ |
+| BRIDGE | Integration Hub | LIVE ✅ |
+
+## Version History
+| Version | Date | Notes |
+|---------|------|-------|
+| v1.0 | May 3, 2026 | Initial deployment |
+| v1.1 | May 3, 2026 | Model upgraded gemini-2.0-flash → gemini-2.5-flash |
+| v1.2 | May 3, 2026 | Slack fix: Simple Text Message + credential connected. First full success (Exec #164, 10.2s) |
+
+## Execution History
+- **Exec #160:** Error — gemini-2.0-flash deprecated
+- **Exec #162:** Error — Slack Blocks syntax (model OK)
+- **Exec #164:** ✅ Succeeded in 10.2s — Full pipeline operational
 
 ## n8n Workflow ID
 `xnorVgKgmqUlZI3W`
-
-## Reports To
-BUNNY (Empire Orchestrator) → MAHESHWARA
-
-## Credentials Used
-- Google Gemini (PaLM) API — `gemini-2.0-flash`
-- Slack — `zelaro-ops` channel
